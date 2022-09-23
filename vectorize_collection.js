@@ -24,18 +24,12 @@ async function iterate_and_update(targetCollection,field) {
     const docs = targetCollection.find();
     /* iterate through all the documents in the collection */
       for await (const doc of docs) { 
-
-      /* encode the field to be vectorized */
-      const encodedText = encodeURIComponent(doc[field]);
-      /* vectorize the field */
-      const fullURL = "https://scalethebrain.com/" + encodedText
-
-       await axios.get(fullURL, {retry: 3, retryDelay: 3000})
+        console.log(doc);
+      await axios.post("https://scalethebrain.com/rest_vector", {"field_to_vectorize": doc[field]})
           .then((response) => {
-            const vectors_returned = response.data.vectors;
+            const vectors_returned = response.data.vector;
             /* update the document with the new value of vectors and
              return the update to the collection */
-            console.log("Vector API Repsonse: ", vectors_returned);
             return targetCollection.updateOne(
               { _id: doc._id },
               { $set: {title_vectors: vectors_returned } }
@@ -43,8 +37,8 @@ async function iterate_and_update(targetCollection,field) {
           }
           )
         }
-    } catch {
-      console(err);
+    } catch(err) {
+      console.log(err);
     }
   }
   
