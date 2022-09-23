@@ -21,7 +21,7 @@ const password = process.env.MONGODB_PASSWORD
 */
 async function iterate_and_update(targetCollection,field) {
   try {
-    const docs = targetCollection.find();
+    const docs = targetCollection.find({title_vectors: {$eq: null}});
     /* iterate through all the documents in the collection */
       for await (const doc of docs) { 
         console.log(doc);
