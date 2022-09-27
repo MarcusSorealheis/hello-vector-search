@@ -2,10 +2,10 @@
   a function to initially vectorize data in the DB 
   in the sample_mflix.movies namespace. You can run
   this from your workstation or a VM with network
-  access to your Atlas cluster. 
+  access to your Atlas cluster.  I forgot a lot of 
+  what I learned from Crockford back in the day,
 */
 const { MongoClient, ServerApiVersion } = require("mongodb");
-const { EJSON } = require("bson");
 const axios = require('axios');
 require("dotenv").config({ path: path.resolve(__dirname, './.env') });
 
@@ -43,20 +43,18 @@ async function iterate_and_update(targetCollection,field) {
   }
   
 /* name the function to vectorize an entire collection and export it  to be called from the command line */
-module.exports.vectorize_collection = async function (field = "title") {
+module.exports.vectorize_collection = async function (field = "plot") {
   const uri = `mongodb+srv://${username}:${password}@cluster0.xh91t.mongodb.net/admin?retryWrites=true&w=majority`;
 
   /* Create a new MongoClient */
   const client = new MongoClient(uri, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
-    serverApi: ServerApiVersion.v1,
+    serverApi: ServerApiVersion.v1
   });
    /* connect to the cluster and collection */ 
   await client.connect();
-  /* test connection */
-  client.db("admin").command({ ping: 1 });
-  console.log("Connected succcessfully to server!");
+
   const collection = client.db("sample_mflix").collection("movies");
 
   /* invoke the function to iterate through the collection and update the documents */
