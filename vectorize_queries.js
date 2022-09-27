@@ -10,14 +10,43 @@
   Copy and paste the code below into the code editor.
 
 */
+exports = async function (query = "all") {
+  const encodedText = encodeURIComponent(query);
+  const conn = context.services
+    .get("mongodb-atlas")
+    .db("sample_mflix")
+    .collection("movies");
+  var response = await context.http
+    .post({
+      url: "https://scalethebrain.com/rest_vector",
+      body: {
+        field_to_vectorize: body,
+      },
+      encodeBodyAsJSON: true,
+    })
+    .then((response) => {
+      const ejson_body = EJSON.parse(response.body.text());
+      return ejson_body;
+    })
+    .catch((err) => {
+      console.log(err);
+    });
 
-exports = async function(query = "all") {
-    var cors = require("cors");
-    const encodedText = encodeURIComponent(query);
-    var response = await context.http.get({ url: "https://scalethebrain.com/"+encodedText, headers: cors})
-      .then(response => {
-        const ejson_body = EJSON.parse(response.body.text());
-        return ejson_body;
-      })
-    return response.vectors;
+  /* store query vector and build the aggregation */
+  query_vector = response.vector;
+  const searchAggregation = [
+    {
+      $search: {
+        knn: {
+          path: "plot_vector",
+          query: query_vector,
+          k: 5,
+        },
+      },
+    },
+  ];
+  const searchResults = await conn.aggreregate(searchAggregation).toArray();
+
+  /* return the search results */
+  return searchResults;
 };
