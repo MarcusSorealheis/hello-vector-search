@@ -32,7 +32,7 @@ async function iterate_and_update(targetCollection,field) {
              return the update to the collection */
             return targetCollection.updateOne(
               { _id: doc._id },
-              { $set: {title_vectors: vectors_returned } }
+              { $set: {plot_vectors: vectors_returned } }
             )
           }
           )
