@@ -8,3 +8,8 @@
 ### That's it. 
 
 - I hope it's all super easy. We will release a blog soon, but in the meantime feel free to step through this almost an all Atlas workflow so you can prepare to talk about it. Very important. Most of our customers know JavaScript. Feel free to open a PR or any issues so we can iron them out before the rush comes. 
+
+### Watch for Changes
+
+If you want to take advantages or improvements, please watch the repo. It will change regularly.
+![watch-repo](https://user-images.githubusercontent.com/2353608/194164132-ced7a315-6fd0-4927-b485-f11d6931fc87.gif)
