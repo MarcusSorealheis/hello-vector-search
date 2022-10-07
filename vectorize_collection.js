@@ -7,6 +7,7 @@
 */
 const { MongoClient, ServerApiVersion } = require("mongodb");
 const axios = require('axios');
+/* see .example_env and create a .env file with your own credentials */
 require("dotenv").config({ path: path.resolve(__dirname, './.env') });
 
 
