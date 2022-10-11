@@ -8,6 +8,7 @@
 const { MongoClient, ServerApiVersion } = require("mongodb");
 const axios = require('axios');
 /* see .example_env and create a .env file with your own credentials */
+const path = require('path')
 require("dotenv").config({ path: path.resolve(__dirname, './.env') });
 
 
@@ -15,6 +16,7 @@ require("dotenv").config({ path: path.resolve(__dirname, './.env') });
 
 const username = process.env.MONGODB_USER
 const password = process.env.MONGODB_PASSWORD
+const clusterHostname = process.env.MONGDB_HOSTNAME
 /*  
   define a function to iterate though an entire collection 
   and make updates to existing documents based on the returned 
@@ -45,7 +47,7 @@ async function iterate_and_update(targetCollection,field) {
   
 /* name the function to vectorize an entire collection and export it  to be called from the command line */
 module.exports.vectorize_collection = async function (field = "plot") {
-  const uri = `mongodb+srv://${username}:${password}@cluster0.xh91t.mongodb.net/admin?retryWrites=true&w=majority`;
+  const uri = `mongodb+srv://${username}:${password}@${clusterHostname}.mongodb.net/admin?retryWrites=true&w=majority`;
 
   /* Create a new MongoClient */
   const client = new MongoClient(uri, {

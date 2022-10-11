@@ -1,3 +1,4 @@
 # MongoDB credentials
 MONGODB_USER=the_username
 MONGODB_PASSWORD=the_password
+MONGODB_HOSTNAME=someProjectName.someHostname
