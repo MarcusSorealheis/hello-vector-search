@@ -24,8 +24,9 @@ const clusterHostname = process.env.MONGDB_HOSTNAME
 */
 async function iterate_and_update(targetCollection,field) {
   try {
-    const docs = targetCollection.find();
-    /* iterate through all the documents in the collection */
+    /* find all docs where the field exists */
+    const docs = targetCollection.find({field: { $exists: true }});
+    /* iterate through all the documents in the collection where the field exists */
       for await (const doc of docs) { 
         console.log(doc);
       await axios.post("https://scalethebrain.com/rest_vector", {"field_to_vectorize": doc[field]})
@@ -45,7 +46,12 @@ async function iterate_and_update(targetCollection,field) {
     }
   }
   
-/* name the function to vectorize an entire collection and export it  to be called from the command line */
+/* 
+name the function to vectorize an entire collection 
+and export it  to be called from the command line 
+with 
+*/
+
 module.exports.vectorize_collection = async function (field = "plot") {
   const uri = `mongodb+srv://${username}:${password}@${clusterHostname}.mongodb.net/admin?retryWrites=true&w=majority`;
 
