@@ -29,17 +29,7 @@
 End stubbed changeEvent to understand
 */
 exports = async function (changeEvent) {
-  // Check if the isNewPlot field was updated
-  // const updatedFields = Object.keys(updateDescription.updatedFields);
-  // const isNewPlot = updatedFields.some(field =>
-  //   field.match(/plot/)
-  // );
 
-  /*
-        A Database Trigger will always call a function with a changeEvent.
-        Documentation on ChangeEvents: https://docs.mongodb.com/manual/reference/change-events/
-    
-        */
 
   let isNewPlot = async function () {
     if (changeEvent.operationType.type === "insert") {
