@@ -16,7 +16,7 @@ require("dotenv").config({ path: path.resolve(__dirname, './.env') });
 
 const username = process.env.MONGODB_USER
 const password = process.env.MONGODB_PASSWORD
-const clusterHostname = process.env.MONGDB_HOSTNAME
+const clusterHostname = process.env.MONGODB_HOSTNAME;
 /*  
   define a function to iterate though an entire collection 
   and make updates to existing documents based on the returned 
@@ -25,10 +25,13 @@ const clusterHostname = process.env.MONGDB_HOSTNAME
 async function iterate_and_update(targetCollection,field) {
   try {
     /* find all docs where the field exists */
-    const docs = targetCollection.find({field: { $exists: true }});
+    const queryObj = {};
+    const fieldName = field;
+    queryObj[fieldName] = {$exists: true};
+    const docs = targetCollection.find(queryObj);
     /* iterate through all the documents in the collection where the field exists */
       for await (const doc of docs) { 
-        console.log(doc);
+        
       await axios.post("https://scalethebrain.com/rest_vector", {"field_to_vectorize": doc[field]})
           .then((response) => {
             const vectors_returned = response.data.vector;
@@ -75,3 +78,6 @@ module.exports.vectorize_collection = async function (field = "plot") {
 }; 
 
 /* end of function to vectorize data in the sample_mflix.users namespace */
+
+/* command to run vectorize_collection fuunction from the command line: */
+module.exports.vectorize_collection()
