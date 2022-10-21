@@ -1,5 +1,6 @@
 # hello-vector-search
 
+This project is meant to be an introduction to vector search and precedes a blog which walks through all the utliity files described below and is not intended for production deployments.
 
 1. A simple JavaScript program to run from your computer to vectorize the `sample_mflix.movies` collection: [vectorize_collection.js](vectorize_collection.js).
 2. A simple JavaScript program to run as a function in Atlas with an HTTPS Endpoint that will vectorize queries, unless you want to call a vector API directly: [vectorize_queries.js](vectorize_queries.js)
