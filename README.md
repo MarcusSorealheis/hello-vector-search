@@ -1,5 +1,7 @@
 # hello-vector-search
 
+— Note in 2024 for archiving: I previously wrote a tutorial in 2022 that was embargoed by a Product Marketing Manager that was a introduction to vector search using MongoDB. Here lived the referenced code examples. Unfortunately, there were no good solutions for vectorization at scale, so I built one. The unerlying infra struggled with the nature of the workload so I left my full-time role at MongoDB and started an infra company. I hope this provides you ideas on how you can wholly manage a vector workload on teh Atlas platform. I've moved on from this wave to a new one, but if you stumbled upon it ask any questions you might have. —
+
 This project is meant to be an introduction to vector search using mongodb and precedes a blog which walks through all the utliity files described below and is not intended for production deployments.
 
 1. A simple JavaScript program to run from your computer to vectorize the `sample_mflix.movies` collection: [vectorize_collection.js](vectorize_collection.js).
